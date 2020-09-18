@@ -12,7 +12,7 @@ const compareURL = urlParams.get("compare");
 fabric.Image.fromURL(baseUrl, function (oImg) {
   canvas.add(oImg);
 });
-fabric.Image.fromURL(compare, function (oImg) {
+fabric.Image.fromURL(compareURL, function (oImg) {
   opacityImage = oImg;
   opacityImage.opacity = 0.5;
   canvas.add(oImg);
