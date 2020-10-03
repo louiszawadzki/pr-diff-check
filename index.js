@@ -18,9 +18,35 @@ fabric.Image.fromURL(compareURL, function (oImg) {
   canvas.add(oImg);
 });
 
+// Opacity change
 const input = document.getElementById("input");
 input.onchange = (newValue) => {
   if (opacityImage) {
     opacityImage.opacity = newValue.target.value / 100;
   }
+};
+
+// blinking
+const blinkButton = document.getElementById("blink");
+const stopBlinkButton = document.getElementById("stop-blink");
+
+const toggleButtons = (buttonToShow, buttonToHide) => {
+  buttonToShow.style.display = "";
+  buttonToHide.style.display = "none";
+};
+
+let blinkInterval;
+
+blinkButton.onclick = () => {
+  toggleButtons(stopBlinkButton, blinkButton);
+  opacityImage.opacity = 1;
+  blinkInterval = setInterval(() => {
+    opacityImage.opacity = 1 - opacityImage.opacity;
+  }, 300);
+};
+
+stopBlinkButton.onclick = () => {
+  toggleButtons(blinkButton, stopBlinkButton);
+  clearInterval(blinkInterval);
+  opacityImage.opacity = input.value;
 };
