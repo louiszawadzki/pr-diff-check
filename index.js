@@ -1,6 +1,6 @@
-var canvas = document.getElementById("c");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight - 50;
+var HTMLcanvas = document.getElementById("c");
+HTMLcanvas.width = window.innerWidth;
+HTMLcanvas.height = window.innerHeight - 50;
 
 var canvas = new fabric.Canvas("c");
 let opacityImage;
@@ -22,7 +22,8 @@ fabric.Image.fromURL(compareURL, function (oImg) {
 const input = document.getElementById("input");
 input.onchange = (newValue) => {
   if (opacityImage) {
-    opacityImage.opacity = newValue.target.value / 100;
+    opacityImage.set("opacity", newValue.target.value / 100);
+    canvas.renderAll();
   }
 };
 
@@ -41,12 +42,14 @@ blinkButton.onclick = () => {
   toggleButtons(stopBlinkButton, blinkButton);
   opacityImage.opacity = 1;
   blinkInterval = setInterval(() => {
-    opacityImage.opacity = 1 - opacityImage.opacity;
+    opacityImage.set("opacity", 1 - opacityImage.opacity);
+    canvas.renderAll();
   }, 300);
 };
 
 stopBlinkButton.onclick = () => {
   toggleButtons(blinkButton, stopBlinkButton);
   clearInterval(blinkInterval);
-  opacityImage.opacity = input.value;
+  opacityImage.set("opacity", input.value / 100);
+  canvas.renderAll();
 };
